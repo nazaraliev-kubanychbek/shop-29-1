@@ -1,34 +1,26 @@
 import {createAction, createReducer} from '@reduxjs/toolkit';
+import axios from 'axios';
 
-const INCREMENT_NUM = 'INCREMENT_NUM';
-const DECREMENT_NUM = 'DECREMENT_NUM';
-const RESET_NUM = 'RESET_NUM';
-const SET_TEXT = 'SET_TEXT';
+const GET_CATEGORIES = 'GET_CATEGORIES';
 
-
-export const incrementNum = createAction(INCREMENT_NUM);
-export const decrementNum = createAction(DECREMENT_NUM);
-export const resetNum = createAction(RESET_NUM);
-export const setText = createAction(SET_TEXT);
+export const getCategories = () =>{
+    const action = createAction(GET_CATEGORIES);
+    return (dispatch) =>{
+        axios('https://fakestoreapi.com/products/categories')
+        .then(({data})=> dispatch(action(data)))
+    }
+}
 
 const initialState = {
-    num: 0,
-    text: 'Hello World!',
+    cart: [],
+    categories: [],
 };
 
 
 export default createReducer(initialState, (builder)=>{
     builder
-    .addCase(INCREMENT_NUM, (state)=>{
-        if(state.num < 15) state.num++;
+    .addCase(GET_CATEGORIES, (state, action)=>{
+        state.categories = action.payload
     })
-    .addCase(DECREMENT_NUM, (state)=>{
-        if(state.num > 0) state.num--;
-    })
-    .addCase(RESET_NUM, (state)=>{
-        state.num = 0
-    })
-    .addCase(SET_TEXT, (state, action)=>{
-        state.text = action.payload
-    })
+ 
 });
