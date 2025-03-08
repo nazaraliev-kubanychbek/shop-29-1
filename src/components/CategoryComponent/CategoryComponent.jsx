@@ -6,13 +6,14 @@ const CategoryComponent = ({limit = null, category}) => {
     const [data, setData] = useState([]);
 
     useEffect(()=>{
+        setData([]);
         axios(
             limit
             ? `https://fakestoreapi.com/products/category/${category}?limit=${limit}`
             : `https://fakestoreapi.com/products/category/${category}`
         )
         .then(({data}) => setData(data))
-    },[])
+    },[category, limit])
     return (
         <div className="container">
             <br />
