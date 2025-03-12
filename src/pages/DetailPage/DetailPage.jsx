@@ -2,11 +2,14 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import './detail.scss';
+import { useDispatch } from "react-redux";
+import { addCart } from "../../redux/reducer";
 
 const DetailPage = () => {
     const params = useParams();
     const navigate = useNavigate();
     const [product, setProduct] = useState({});
+    const dispatch = useDispatch();
 
     useEffect(()=>{
         axios(`https://fakestoreapi.com/products/${params.id}`)
@@ -15,7 +18,6 @@ const DetailPage = () => {
     return (
         <div className="detail">
            <div className="container">
-
             <div className="row">
                 <div className="col-6">
                     <img className="detail-img" src={product.image} alt="" />
@@ -24,7 +26,10 @@ const DetailPage = () => {
                     <h2 className="deatil-title">{product.title}</h2>
                     <p className="detail-description">{product.description}</p>
                     <p>{product.category}</p>
-                    <button>buy</button>
+                    <p>${product.price}</p>
+                    <button onClick={()=>{
+                        dispatch(addCart(product))
+                    }}>buy</button>
                     <button onClick={()=>{
                         navigate(-1)
                     }}>go back</button>

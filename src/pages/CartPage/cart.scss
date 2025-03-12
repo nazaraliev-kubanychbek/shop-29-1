@@ -1,0 +1,24 @@
+
+.cart{
+    padding-top: 50px;
+    &-item{
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+        border-bottom: 1px solid;
+        &-left{
+            display: flex;
+            column-gap: 10px;
+            width: 500px;
+            align-items: center;
+            img{
+                width: 150px;
+            }
+        }
+        &-right{
+            display: flex;
+            align-items: center;
+            column-gap: 10px;
+        }
+    }
+}
